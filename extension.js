@@ -1,27 +1,17 @@
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import { MprisWatcher } from './lib/mpris.js';
+import { PanelWidget } from './lib/panel-widget.js';
 
 export default class AwesomeMediaController extends Extension {
     enable() {
         this._watcher = new MprisWatcher();
-        this._playerChangedId = this._watcher.connect('player-changed', () => {
-            const state = this._watcher.getPlayerState();
-            console.log('AMC player-changed:', state?.title, state?.playbackStatus);
-        });
-        this._playersListId = this._watcher.connect('players-list-changed', () => {
-            const list = this._watcher.getPlayerList();
-            console.log('AMC players:', list.map(p => p.displayName).join(', '));
-        });
+        this._widget  = new PanelWidget(this._watcher);
     }
 
     disable() {
-        if (this._watcher) {
-            this._watcher.disconnect(this._playerChangedId);
-            this._watcher.disconnect(this._playersListId);
-            this._watcher.destroy();
-            this._watcher = null;
-        }
-        this._playerChangedId = 0;
-        this._playersListId = 0;
+        this._widget?.destroy();
+        this._widget = null;
+        this._watcher?.destroy();
+        this._watcher = null;
     }
 }

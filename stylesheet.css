@@ -1,0 +1,90 @@
+/* Static structure lives here; themed colors (gradients, borders)
+   are applied inline by the ThemeManager at runtime. */
+
+.amc-pill {
+    background-color: rgba(20, 14, 36, 0.88);
+    border-radius: 999px;
+    padding: 3px 10px 3px 5px;
+    transition-duration: 200ms;
+}
+
+.amc-pill-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.amc-pill-artist {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Neutral circular control button — hover/press handled here */
+.amc-btn {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    color: rgba(255, 255, 255, 0.75);
+    transition-duration: 150ms;
+}
+
+.amc-btn:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+.amc-btn:active {
+    background-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Gradient play button keeps its colors inline; hover adds a lift */
+.amc-btn-accent {
+    border-radius: 99px;
+    color: #ffffff;
+    transition-duration: 150ms;
+}
+
+.amc-btn-accent:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+}
+
+.amc-popup-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.amc-popup-artist {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 2px;
+}
+
+.amc-popup-album {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.28);
+    margin-bottom: 12px;
+}
+
+.amc-time-label {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.amc-switcher-label {
+    font-size: 9px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+}
+
+.amc-player-pill {
+    border-radius: 99px;
+    padding: 4px 10px;
+    transition-duration: 150ms;
+}
+
+.amc-player-pill:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}

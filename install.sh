@@ -10,10 +10,16 @@ mkdir -p "$DEST"
 rsync -a --delete \
   --exclude='.git' \
   --exclude='docs' \
+  --exclude='tests' \
   --exclude='.superpowers' \
+  --exclude='.claude' \
+  --exclude='context.txt' \
   --exclude='install.sh' \
   "$(dirname "$0")/" \
   "$DEST/"
+
+echo "Compiling settings schema..."
+glib-compile-schemas "$DEST/schemas"
 
 echo "Reloading extension..."
 gnome-extensions disable "$EXT" 2>/dev/null || true

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.awesome-media-controller"
+          path="/org/gnome/shell/extensions/awesome-media-controller/">
+
+    <key name="accent-mode" type="s">
+      <choices>
+        <choice value="adaptive"/>
+        <choice value="custom"/>
+      </choices>
+      <default>'adaptive'</default>
+      <summary>Accent color mode</summary>
+      <description>adaptive: extract accent colors from the current album art; custom: use the colors below.</description>
+    </key>
+
+    <key name="accent-start" type="s">
+      <default>'#8b5cf6'</default>
+      <summary>Gradient start color (custom mode)</summary>
+    </key>
+
+    <key name="accent-end" type="s">
+      <default>'#ec4899'</default>
+      <summary>Gradient end color (custom mode)</summary>
+    </key>
+
+    <key name="panel-position" type="s">
+      <choices>
+        <choice value="left"/>
+        <choice value="center"/>
+        <choice value="right"/>
+      </choices>
+      <default>'center'</default>
+      <summary>Position of the pill in the top bar</summary>
+    </key>
+
+    <key name="show-pill-controls" type="b">
+      <default>true</default>
+      <summary>Show prev/play/next buttons in the panel pill</summary>
+    </key>
+
+    <key name="enable-marquee" type="b">
+      <default>true</default>
+      <summary>Scroll long titles in the panel pill</summary>
+    </key>
+
+  </schema>
+</schemalist>

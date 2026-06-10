@@ -1,8 +1,9 @@
-/* Static structure lives here; themed colors (gradients, borders)
+/* Static structure lives here; themed colors (gradients, borders, glows)
    are applied inline by the ThemeManager at runtime. */
 
 .amc-pill {
-    background-color: rgba(20, 14, 36, 0.88);
+    background-color: rgba(15, 10, 28, 0.72);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.0));
     border-radius: 999px;
     padding: 3px 10px 3px 5px;
     transition-duration: 200ms;
@@ -16,24 +17,25 @@
 
 .amc-pill-artist {
     font-size: 9px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.55);
 }
 
-/* Neutral circular control button — hover/press handled here */
+/* Neutral circular control button (glass chip) — hover/press handled here */
 .amc-btn {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 99px;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.8);
     transition-duration: 150ms;
 }
 
 .amc-btn:hover {
-    background-color: rgba(255, 255, 255, 0.18);
+    background-color: rgba(255, 255, 255, 0.16);
     color: #ffffff;
 }
 
 .amc-btn:active {
-    background-color: rgba(255, 255, 255, 0.28);
+    background-color: rgba(255, 255, 255, 0.26);
 }
 
 /* Gradient play button keeps its colors inline; hover adds a lift */
@@ -44,7 +46,7 @@
 }
 
 .amc-btn-accent:hover {
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.30);
 }
 
 .amc-popup-title {
@@ -54,27 +56,27 @@
     margin-bottom: 2px;
 }
 
+/* Artist color is the accent, applied inline by the theme */
 .amc-popup-artist {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
     margin-bottom: 2px;
 }
 
 .amc-popup-album {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.30);
     margin-bottom: 12px;
 }
 
 .amc-time-label {
     font-size: 9px;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.35);
 }
 
 .amc-switcher-label {
     font-size: 9px;
     font-weight: bold;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.25);
     margin-bottom: 8px;
     letter-spacing: 1.5px;
 }

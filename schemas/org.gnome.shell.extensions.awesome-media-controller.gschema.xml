@@ -6,11 +6,12 @@
     <key name="accent-mode" type="s">
       <choices>
         <choice value="adaptive"/>
+        <choice value="preset"/>
         <choice value="custom"/>
       </choices>
       <default>'adaptive'</default>
       <summary>Accent color mode</summary>
-      <description>adaptive: extract accent colors from the current album art; custom: use the colors below.</description>
+      <description>adaptive: extract accent colors from the current album art; preset: use a named built-in theme; custom: use the colors below.</description>
     </key>
 
     <key name="accent-start" type="s">
@@ -21,6 +22,11 @@
     <key name="accent-end" type="s">
       <default>'#ec4899'</default>
       <summary>Gradient end color (custom mode)</summary>
+    </key>
+
+    <key name="theme-preset" type="s">
+      <default>'synthwave'</default>
+      <summary>Built-in theme preset name (preset mode)</summary>
     </key>
 
     <key name="panel-position" type="s">
@@ -41,6 +47,11 @@
     <key name="enable-marquee" type="b">
       <default>true</default>
       <summary>Scroll long titles in the panel pill</summary>
+    </key>
+
+    <key name="enable-animations" type="b">
+      <default>true</default>
+      <summary>Enable EQ bars, glow pulse, and popup transitions</summary>
     </key>
 
   </schema>

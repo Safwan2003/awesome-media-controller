@@ -27,6 +27,7 @@
     <key name="theme-preset" type="s">
       <default>'synthwave'</default>
       <summary>Built-in theme preset name (preset mode)</summary>
+      <description>Name of a built-in preset (synthwave, cyberpunk, aurora, sunset-lofi, toxic, crimson). Unknown names fall back to synthwave. Only used when accent-mode is preset.</description>
     </key>
 
     <key name="panel-position" type="s">

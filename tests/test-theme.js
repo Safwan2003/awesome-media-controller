@@ -1,5 +1,5 @@
 // Run with: gjs -m tests/test-theme.js
-import { extractPalette, rgbToHex, rgbToHsv } from '../lib/theme.js';
+import { extractPalette, rgbToHex, rgbToHsv, PRESETS, resolvePreset } from '../lib/theme.js';
 
 let failures = 0;
 function assert(cond, msg) {
@@ -63,6 +63,20 @@ assert(p3 !== null && rgbToHsv(
     parseInt(p3[0].slice(3, 5), 16),
     parseInt(p3[0].slice(5, 7), 16)
 ).h > 60, 'transparent pixels ignored (primary is green, not red)');
+
+print('PRESETS');
+const HEX = /^#[0-9a-f]{6}$/;
+assert(Object.keys(PRESETS).length === 6, 'six built-in presets');
+for (const [name, preset] of Object.entries(PRESETS)) {
+    assert(typeof preset.label === 'string' && preset.label.length > 0, `${name} has a label`);
+    assert(Array.isArray(preset.colors) && preset.colors.length === 2, `${name} has two colors`);
+    assert(preset.colors.every((c) => HEX.test(c)), `${name} colors are lowercase hex`);
+}
+
+print('resolvePreset');
+assert(resolvePreset('cyberpunk')[0] === '#00e5ff', 'finds preset by name');
+assert(resolvePreset('does-not-exist')[0] === PRESETS['synthwave'].colors[0],
+    'unknown name falls back to synthwave');
 
 if (failures > 0) {
     print(`\n${failures} test(s) FAILED`);

@@ -1,5 +1,5 @@
 // Run with: gjs -m tests/test-theme.js
-import { extractPalette, rgbToHex, rgbToHsv, PRESETS, resolvePreset } from '../lib/theme.js';
+import { extractPalette, rgbToHex, rgbToHsv, PRESETS, resolvePreset, ThemeManager } from '../lib/theme.js';
 
 let failures = 0;
 function assert(cond, msg) {
@@ -77,6 +77,34 @@ print('resolvePreset');
 assert(resolvePreset('cyberpunk')[0] === '#00e5ff', 'finds preset by name');
 assert(resolvePreset('does-not-exist')[0] === PRESETS['synthwave'].colors[0],
     'unknown name falls back to synthwave');
+
+print('ThemeManager preset mode');
+function fakeSettings(values) {
+    return {
+        get_string(key) { return values[key]; },
+        connect() { return 1; },
+        disconnect() {},
+    };
+}
+
+const tmPreset = new ThemeManager(fakeSettings({
+    'accent-mode': 'preset', 'theme-preset': 'cyberpunk',
+    'accent-start': '#111111', 'accent-end': '#222222',
+}));
+assert(tmPreset.accentA === '#00e5ff', 'preset mode resolves accentA');
+assert(tmPreset.accentB === '#ff00aa', 'preset mode resolves accentB');
+
+const tmBad = new ThemeManager(fakeSettings({
+    'accent-mode': 'preset', 'theme-preset': 'nonsense',
+    'accent-start': '#111111', 'accent-end': '#222222',
+}));
+assert(tmBad.accentA === PRESETS['synthwave'].colors[0], 'bad preset name falls back');
+
+const tmCustom = new ThemeManager(fakeSettings({
+    'accent-mode': 'custom',
+    'accent-start': '#111111', 'accent-end': '#222222',
+}));
+assert(tmCustom.accentA === '#111111', 'custom mode still uses settings colors');
 
 if (failures > 0) {
     print(`\n${failures} test(s) FAILED`);

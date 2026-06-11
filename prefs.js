@@ -2,6 +2,7 @@ import Adw from 'gi://Adw';
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import { PRESETS } from './lib/theme.js';
 
 function hexFromRgba(rgba) {
     const c = (v) => Math.round(v * 255).toString(16).padStart(2, '0');
@@ -22,15 +23,27 @@ export default class AmcPreferences extends ExtensionPreferences {
         });
         page.add(themeGroup);
 
+        const modes = ['adaptive', 'preset', 'custom'];
         const modeRow = new Adw.ComboRow({
             title: 'Accent colors',
-            model: Gtk.StringList.new(['Adaptive (from album art)', 'Custom']),
+            model: Gtk.StringList.new(['Adaptive (from album art)', 'Preset theme', 'Custom']),
         });
-        modeRow.selected = settings.get_string('accent-mode') === 'custom' ? 1 : 0;
+        modeRow.selected = Math.max(0, modes.indexOf(settings.get_string('accent-mode')));
         modeRow.connect('notify::selected', () => {
-            settings.set_string('accent-mode', modeRow.selected === 1 ? 'custom' : 'adaptive');
+            settings.set_string('accent-mode', modes[modeRow.selected]);
         });
         themeGroup.add(modeRow);
+
+        const presetNames = Object.keys(PRESETS);
+        const presetRow = new Adw.ComboRow({
+            title: 'Preset theme',
+            model: Gtk.StringList.new(presetNames.map((n) => PRESETS[n].label)),
+        });
+        presetRow.selected = Math.max(0, presetNames.indexOf(settings.get_string('theme-preset')));
+        presetRow.connect('notify::selected', () => {
+            settings.set_string('theme-preset', presetNames[presetRow.selected]);
+        });
+        themeGroup.add(presetRow);
 
         const colorRow = (title, key) => {
             const row = new Adw.ActionRow({ title });
@@ -53,9 +66,10 @@ export default class AmcPreferences extends ExtensionPreferences {
         themeGroup.add(endRow);
 
         const syncSensitive = () => {
-            const custom = settings.get_string('accent-mode') === 'custom';
-            startRow.sensitive = custom;
-            endRow.sensitive   = custom;
+            const mode = settings.get_string('accent-mode');
+            presetRow.sensitive = mode === 'preset';
+            startRow.sensitive  = mode === 'custom';
+            endRow.sensitive    = mode === 'custom';
         };
         settings.connect('changed::accent-mode', syncSensitive);
         syncSensitive();
@@ -82,5 +96,6 @@ export default class AmcPreferences extends ExtensionPreferences {
         };
         panelGroup.add(switchRow('Playback buttons in pill', 'Show prev/play/next directly in the top bar', 'show-pill-controls'));
         panelGroup.add(switchRow('Marquee titles', 'Scroll long track titles in the pill', 'enable-marquee'));
+        panelGroup.add(switchRow('Animations', 'EQ bars, glow pulse, and popup transitions', 'enable-animations'));
     }
 }

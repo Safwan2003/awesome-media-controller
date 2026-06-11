@@ -1,0 +1,52 @@
+name: Release
+
+# Builds the installable extension bundle and attaches it to the GitHub Release.
+# Trigger: publish a Release in the GitHub UI (tag it e.g. v3 to match metadata.json "version").
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package extension zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install gjs and glib tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gjs libglib2.0-bin zip
+
+      - name: Verify before packaging
+        run: |
+          gjs -m tests/test-theme.js
+          glib-compile-schemas --strict --dry-run schemas/
+
+      - name: Build EGO-compatible bundle
+        id: bundle
+        run: |
+          UUID=$(gjs -c "print(JSON.parse(imports.gi.GLib.file_get_contents('metadata.json')[1].toString()).uuid)")
+          OUT="${UUID}.shell-extension.zip"
+          # EGO expects metadata.json at the zip root (no wrapping directory).
+          zip -r "$OUT" \
+            metadata.json \
+            extension.js \
+            prefs.js \
+            stylesheet.css \
+            schemas \
+            lib \
+            LICENSE \
+            -x '*.compiled'
+          echo "out=$OUT" >> "$GITHUB_OUTPUT"
+          echo "Built $OUT:"
+          unzip -l "$OUT"
+
+      - name: Attach bundle to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" "${{ steps.bundle.outputs.out }}" --clobber

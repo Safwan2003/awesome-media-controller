@@ -1,0 +1,51 @@
+name: Bug report
+description: Something isn't working as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! Please fill in as much as you can.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+      placeholder: When I play music in Spotify, the EQ bars don't animate…
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Click …
+        3. See …
+    validations:
+      required: true
+  - type: input
+    id: gnome-version
+    attributes:
+      label: GNOME Shell version
+      description: "Run: gnome-shell --version"
+      placeholder: "GNOME Shell 50.2"
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution & session
+      placeholder: "Fedora 44, Wayland"
+    validations:
+      required: true
+  - type: input
+    id: player
+    attributes:
+      label: Media player(s) involved
+      placeholder: "Spotify, Firefox"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: "Output of: journalctl -b 0 -o cat /usr/bin/gnome-shell | grep -iE 'amc|media-controller|JS ERROR'"
+      render: shell

@@ -1,2 +1,8 @@
 .superpowers/
+.claude/
 context.txt
+conttext.txt
+
+# Build artifacts
+*.shell-extension.zip
+schemas/gschemas.compiled

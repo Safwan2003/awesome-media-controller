@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest an idea, a new preset theme, or an enhancement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      placeholder: I'd love a way to…
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: For a new preset theme, include a name and two hex colors (start/end).
+      placeholder: "Add a 'Vaporwave' preset with #ff71ce → #01cdfe"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

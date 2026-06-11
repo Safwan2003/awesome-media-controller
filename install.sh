@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-EXT="awesome-media-controller@awesome"
+EXT="awesome-media-controller@safwan"
 DEST="$HOME/.local/share/gnome-shell/extensions/$EXT"
 
 echo "Installing Awesome Media Controller..."

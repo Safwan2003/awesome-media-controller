@@ -54,13 +54,13 @@ cd awesome-media-controller
 Then log out and back in (GNOME caches extension modules within a session), and enable it:
 
 ```bash
-gnome-extensions enable awesome-media-controller@awesome
+gnome-extensions enable awesome-media-controller@safwan
 ```
 
 Open settings with:
 
 ```bash
-gnome-extensions prefs awesome-media-controller@awesome
+gnome-extensions prefs awesome-media-controller@safwan
 ```
 
 ## Configuration
